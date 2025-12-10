@@ -1,9 +1,11 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
+import { getStoredBook, addToStore } from '../utility';
 
 const BookDetailsPage = () => {
     const book = useLoaderData();
+
     
     if (!book) {
         return (
@@ -17,6 +19,12 @@ const BookDetailsPage = () => {
     }
 
     const { bookId, bookName, author, totalPages, image, rating, review, category, tags, publisher, yearOfPublishing } = book;
+
+    const handleWishList=(id)=>{
+        addToStore(id);
+
+        
+    }
 
     return (
         <div>
@@ -63,7 +71,7 @@ const BookDetailsPage = () => {
                             <button className="px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-100 font-semibold transition-colors">
                                 Read
                             </button>
-                            <button className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition-colors">
+                            <button onClick={() => handleWishList(bookId)} className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition-colors">
                                 Wishlist
                             </button>
                         </div>
