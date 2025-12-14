@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../Components/Navbar';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import WistListBooks from '../Components/WistListBooks.jsx';
@@ -11,6 +11,21 @@ const ListedBooks = () => {
     const [readListBooks, setReadListBooks] = useState([]);
     const [wishListBooks, setWishListBooks] = useState([]);
     const [loading, setLoading] = useState(true);
+    const dropdownRef = useRef(null);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     // Fetch data once in parent
     useEffect(() => {
@@ -24,8 +39,8 @@ const ListedBooks = () => {
             const filteredRead = allBooks.filter(book => readListIds.includes(book.bookId));
             const filteredWish = allBooks.filter(book => wishListIds.includes(book.bookId));
 
-            setReadListBooks(filteredRead);
-            setWishListBooks(filteredWish);
+            setReadListBooks(filteredRead); //these are array of books 
+            setWishListBooks(filteredWish); // these are array of books
             setLoading(false);
         };
 
@@ -37,7 +52,7 @@ const ListedBooks = () => {
         if (type === 'rating') {
             const sortedRead = [...readListBooks].sort((a, b) => b.rating - a.rating);
             const sortedWish = [...wishListBooks].sort((a, b) => b.rating - a.rating);
-            setReadListBooks(sortedRead);
+            setReadListBooks(sortedRead);  //readlist books are not empty arry, but contains books 
             setWishListBooks(sortedWish);
         } else if (type === 'pages') {
             const sortedRead = [...readListBooks].sort((a, b) => a.totalPages - b.totalPages);
@@ -55,7 +70,7 @@ const ListedBooks = () => {
                 <h1 className="text-4xl mt-12 mb-8 text-center font-bold">My Books Collection</h1>
                 
                 {/* React Dropdown */}
-                <div className="relative inline-block mb-6">
+                <div ref={dropdownRef} className="relative inline-block mb-6">
                     <button
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         className="px-6 py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition-colors font-semibold"
