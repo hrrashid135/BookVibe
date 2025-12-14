@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
-import { getStoredBook, addToStore } from '../utility';
+import { getStoredBook, addToStore, getReadListedBook, addToReadStore } from '../utility';
 
 const BookDetailsPage = () => {
     const book = useLoaderData();
@@ -23,6 +23,9 @@ const BookDetailsPage = () => {
     const handleWishList=(id)=>{
         addToStore(id);
 
+    }
+    const handleReadList=(id)=>{
+        addToReadStore(id);
         
     }
 
@@ -68,7 +71,7 @@ const BookDetailsPage = () => {
                         </div>
                         
                         <div className="flex gap-4 mt-6">
-                            <button className="px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-100 font-semibold transition-colors">
+                            <button onClick={() => handleReadList(bookId)} className="px-6 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-100 font-semibold transition-colors">
                                 Read
                             </button>
                             <button onClick={() => handleWishList(bookId)} className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition-colors">

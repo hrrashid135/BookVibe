@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import bookimg from '../assets/books.jpg';
 import NavBar from './Navbar.jsx';
 
@@ -14,7 +14,7 @@ const Header = () => {
                         <h1>your mind</h1>
                     </div>
                     
-                    <button className="py-2 px-4 mt-8 bg-green-500 text-white rounded">View Your list</button>
+                   <Link to="/listed-books"> <button className="py-2 px-4 mt-8 bg-green-500 text-white rounded">View Your list</button></Link>
                 </div>
                 <div className="right">
                     <img src={bookimg} />

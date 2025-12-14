@@ -6,6 +6,7 @@ import { createBrowserRouter } from "react-router-dom"
 import { RouterProvider } from "react-router-dom"
 import Books from './Components/Books.jsx'
 import BookDetailsPage from './Pages/BookDetailsPage.jsx'
+import ListedBooks from './Pages/ListedBooks.jsx'
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       return books.find(book => book.bookId === parseInt(params.bookId));
     },
     element: <BookDetailsPage></BookDetailsPage>
+  },
+  {
+    path : "/listed-books",
+    element : <ListedBooks></ListedBooks>
   }
 ])
 
