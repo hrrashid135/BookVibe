@@ -32,16 +32,7 @@ const Navbar = () => {
                     >
                         Listed Books
                     </NavLink>
-                    <NavLink 
-                        to="/pages-to-read" 
-                        className={({isActive}) => 
-                            isActive 
-                                ? "text-green-600 font-semibold border-b-2 border-green-600 pb-1" 
-                                : "text-gray-700 hover:text-green-600 transition-colors font-medium"
-                        }
-                    >
-                        Pages to Read
-                    </NavLink>
+                    
                 </div>
                 
                 <div className="right flex gap-4">
